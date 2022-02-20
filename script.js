@@ -3,23 +3,23 @@ let operatorButtons = document.querySelectorAll("#operators");
 let calcButton = document.querySelector("#calcBtn");
 let clearButton = document.querySelector("#clrBtn");
 let decimalButton = document.querySelector(".decimal");
+let delButton = document.querySelector("#delBtn");
 let decimalEnabled = true;
 
 let display = document.querySelector("#display");
 let operator = ""; 
-let num1 = 0;
-let num2 = 0;
-let temp = 0;
+let firstNumber = 0;
+let secondNumber = 0;
+let numberHolder = 0;
 
 display.value = "";
 
 for(let button of numButtons) {
     button.addEventListener("click", event => {
-        if(num1){
-            display.value = "";
-            temp = num1; 
-            num1 = 0;
-            decimalEnabled = true;
+        if(firstNumber){
+            numberHolder = firstNumber; 
+            firstNumber = 0;
+            clearDisplay();          
         }
             display.value += event.target.getAttribute("value");
     });
@@ -27,29 +27,29 @@ for(let button of numButtons) {
 
 for(let button of operatorButtons) {
     button.addEventListener("click", event => {
-        if(temp){
-            num2 = parseFloat(display.value);
-            display.value = operate(temp, num2);
-            temp = 0;
+        if(numberHolder){
+            secondNumber = parseFloat(display.value);
+            display.value = operate(numberHolder, secondNumber);
+            numberHolder = 0;
             decimalEnabled = true;
         }
-        num1 = parseFloat(display.value);
+        firstNumber = parseFloat(display.value);
         operator = event.target.getAttribute("value");        
     });
 }
 
 calcButton.addEventListener("click", () => {
-    if(temp){
-        num2 = parseFloat(display.value);
-        display.value = operate(temp, num2);
-        temp = 0;
+    if(numberHolder){
+        secondNumber = parseFloat(display.value);
+        display.value = operate(numberHolder, secondNumber);
+        numberHolder = 0;
         decimalEnabled = true;
     }
 });
 
 clearButton.addEventListener("click", () => {
-    display.value = "";
-    decimalEnabled = true;
+    clearDisplay();
+    firstNumber, secondNumber, numberHolder = 0;
 });
 
 decimalButton.addEventListener("click", () => {
@@ -59,33 +59,28 @@ decimalButton.addEventListener("click", () => {
     }
 });
 
+delButton.addEventListener("click", () => {
+    display.value = display.value.slice(0,display.value.length-1);
+});
 
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    return a / b;
+function clearDisplay() {
+    display.value = "";
+    decimalEnabled = true;
 }
 
 function operate(a, b) {
+    if(b === 0){
+        return "Can't divide by 0. Press CLEAR";
+    }
     switch(operator) {
         case '+':
-            return add(a , b);
+            return (a + b);
         case '-':
-            return subtract(a, b);
+            return (a - b);
         case '*':
-            return multiply(a, b);
+            return (a * b);
         case '/':
-            return divide(a, b);
+            return (a / b);
     }
 }
 
