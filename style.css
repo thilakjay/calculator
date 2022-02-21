@@ -7,15 +7,15 @@ body {
 }
 
 #container {
-    border: 1px black solid;
     background-color: black;
-    width: 25%;
+    width: 400px;
 }
 
-#display {
+.display {
     width: 100%;
     height: 120px;
-    font-size: 50px;
+    font-size: 45px;
+    border: 0;
     color: white;
     font-weight: bold;
     text-align: right;
@@ -29,45 +29,9 @@ body {
 #fifth-row {
     display: flex;
 }
-/*
-#first-row > button, 
-#second-row > button,
-#third-row > button
-{
-    flex: 1;
-}
 
-
-
+#fifth-row button:nth-child(1),
 #fourth-row button:nth-child(1) {
-    flex: 2;
-}
-
-#fourth-row button:nth-child(2) {
-    flex: 1;
-}
-
-#fourth-row button:nth-child(3) {
-    flex: 1;
-}
-
-#fifth-row button:nth-child(1) {
-    flex: 1;
-}
-
-#fifth-row button:nth-child(2) {
-    flex: 1;
-}
-
-#fifth-row button:nth-child(3) {
-    flex: 2;
-}
-*/
-#fourth-row button:nth-child(1) {
-    width: 50%;
-}
-
-#fifth-row button:nth-child(1) {
     width: 50%;
 }
 
@@ -75,7 +39,7 @@ button {
     width: 25%;
     height: 60px;
     font-size: 1em;
-    border-radius: 1px;
+    border: 1px gainsboro solid;
 }
 
 .numbers, .decimal {
@@ -86,26 +50,26 @@ button {
     background-color: white;
 }
 
-#operators {
+.operators {
     background-color: rgb(241, 182, 72);
 }
 
-#operators:hover {
+.operators:hover {
     background-color: rgb(250, 163, 2);
 }
 
-#calcBtn {
+.calcBtn {
     background-color: rgb(255, 132, 83);
 }
 
-#calcBtn:hover {
+.calcBtn:hover {
     background-color: rgb(255, 83, 83);
 }
 
-#clrBtn, #delBtn {
+.clrBtn, .delBtn {
     background-color: rgb(167, 165, 165);
 }
 
-#clrBtn:hover, #delBtn:hover  {
+.clrBtn:hover, .delBtn:hover  {
     background-color: rgb(216, 215, 215);
 }
