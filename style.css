@@ -22,16 +22,8 @@ body {
     background-color: black;
 }
 
-#first-row, 
-#second-row, 
-#third-row, 
-#fourth-row,
-#fifth-row {
-    display: flex;
-}
-
-#fifth-row button:nth-child(1),
-#fourth-row button:nth-child(1) {
+#row4 button:nth-child(1),
+#row5 button:nth-child(1) {
     width: 50%;
 }
 

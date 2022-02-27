@@ -6,7 +6,7 @@ const decimalButton = document.querySelector(".decimal");
 const delButton = document.querySelector(".delBtn");
 const display = document.querySelector(".display");
 
-let decimalEnabled = true;
+let decimalEnabled = true; //to prevent more than 1 decimal being inserted
 let operator = ""; 
 let firstNumber = 0;
 let secondNumber = 0;
@@ -15,45 +15,26 @@ let numberHolder = 0;
 display.value = "";
 
 for(let button of numButtons) {
-    button.addEventListener("click", event => {
-        // if(firstNumber){
-        //     numberHolder = firstNumber; 
-        //     firstNumber = 0;
-        //     clearDisplay();          
-        // }
-        //     display.value += event.target.getAttribute("value");
+    button.addEventListener("click", event => { 
         displayNumber(event.target.getAttribute("value"));
     });
 }
 
 for(let button of operatorButtons) {
     button.addEventListener("click", event => {
-        // if(numberHolder){
-        //     secondNumber = parseFloat(display.value);
-        //     display.value = operate(numberHolder, secondNumber);
-        //     numberHolder = 0;
-        //     decimalEnabled = true;
-        // }
-        // firstNumber = parseFloat(display.value);
-        // operator = event.target.getAttribute("value");  
-        
         getOperator(event.target.getAttribute("value"));
     });
 }
 
 calcButton.addEventListener("click", () => {
-    // if(numberHolder){
-    //     secondNumber = parseFloat(display.value);
-    //     display.value = operate(numberHolder, secondNumber);
-    //     numberHolder = 0;
-    //     decimalEnabled = true;
-    // }
     calcCurrentOp();
 });
 
 clearButton.addEventListener("click", () => {
     clearDisplay();
-    firstNumber, secondNumber, numberHolder = 0;
+    firstNumber = 0;
+    secondNumber = 0; 
+    numberHolder = 0;
 });
 
 decimalButton.addEventListener("click", () => {
@@ -61,7 +42,7 @@ decimalButton.addEventListener("click", () => {
 });
 
 delButton.addEventListener("click", () => {
-    display.value = display.value.slice(0,display.value.length-1); //is there a simpler way to write this?
+    display.value = display.value.slice(0,-1); 
 });
 
 document.addEventListener("keydown", event => {
@@ -80,7 +61,7 @@ document.addEventListener("keydown", event => {
             calcCurrentOp();
             break;
         case "Backspace": case "Delete":
-            display.value = display.value.slice(0,display.value.length-1);
+            display.value = display.value.slice(0,-1);
             break;
     }
 });
@@ -91,24 +72,22 @@ function displayNumber(number){
         numberHolder = firstNumber; 
         firstNumber = 0;
         clearDisplay();          
+    }   
+    if(display.value.length > 14){
+        display.value = display.value.splice(0, -1);
     }
         display.value += number;
 }
 
 function getOperator(op){
-    //if there was a number that was previously stored after an operator is pressed, then that current operation is calculated and displayed.
-    if(numberHolder){
-        secondNumber = parseFloat(display.value);
-        display.value = operate(numberHolder, secondNumber);
-        numberHolder = 0;
-        decimalEnabled = true;
-    }
+    calcCurrentOp(); 
     firstNumber = parseFloat(display.value);
     operator = op;   
 }
 
 function calcCurrentOp() {
-    //if there was a number that was previously stored after an operator is pressed, then that current operation is calculated and displayed.
+    //if there was a number that was previously stored and a number entered in the display after an operator is pressed, 
+    //then that current operation is calculated and displayed.
     if(numberHolder){
         secondNumber = parseFloat(display.value);
         display.value = operate(numberHolder, secondNumber);
@@ -144,10 +123,4 @@ function operate(a, b) {
             return (a / b);       
     }
 }
-
-//limit on number input/overflow
-//styling
-//toggle operator button 'on' to show which operator clicked
-//clean up code - better variable names, comments
-//readme - what you learned, struggled with, etc..
 
